@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tabs-spaces
+  namespace: tabs-spaces
+  labels:
+    app.kubernetes.io/name: tabs-spaces
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+       maxSurge: 1
+       maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: tabs-spaces
+  template:
+    metadata:
+      labels:
+        app: tabs-spaces
+    spec:
+      containers:
+        - name: app
+          image: ghcr.io/cse-labs/go-vote:0.2.0
+          imagePullPolicy: Always
+          env:
+          - name: KEY1
+            value: Tabs
+          - name: KEY2
+            value: Spaces
+          - name: TITLE
+            value: Can we still be friends?
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 5
+            failureThreshold: 10
+            periodSeconds: 60
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: http
+            initialDelaySeconds: 5
+            failureThreshold: 10
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: 200m
+              memory: 64Mi
+            limits:
+              cpu: 400m
+              memory: 128Mi

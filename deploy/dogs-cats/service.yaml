@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dogs-cats
+  namespace: dogs-cats
+spec:
+  selector:
+    app: dogs-cats
+
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: http
+      protocol: TCP
+      name: http
