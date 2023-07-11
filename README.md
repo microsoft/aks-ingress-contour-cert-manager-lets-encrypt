@@ -118,14 +118,6 @@
 
   ```
 
-- Install the AKS CLI
-
-  ```bash
-
-  sudo az aks install-cli
-
-  ```
-
 - Login to the AKS Cluster
 
   ```bash
@@ -148,17 +140,21 @@
 
     ```bash
 
-    # due to timing, the let's encrypt setup sometimes fails the first time
-    # wait a few seconds and rerun the command
     kubectl apply -k deploy/contour
+
+    # wait for pods to start
+    kubectl wait pod --all -n cert-manager --for=condition=ready --timeout 60s
 
     ```
 
-- Check Contour Deployment
+- Apply the lets-encrypt Kustomization
 
   ```bash
 
-  kubectl get pods -n projectcontour
+  kubectl apply -k deploy/lets-encrypt
+
+  # check pods
+  kubectl get pods -A
 
   ```
 
