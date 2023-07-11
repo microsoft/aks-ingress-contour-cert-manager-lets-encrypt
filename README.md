@@ -78,6 +78,14 @@
 
   ```
 
+- View ingress manifest changes
+
+  ```bash
+
+  git diff
+
+  ```
+
 ## Deploy a basic AKS Cluster
 
 - Login to Azure using a device code
@@ -223,7 +231,7 @@
     ```
 
 - Check the https endpoint
-  - You may need to retry due to the acme handshake
+  - You may need to retry due to the acme handshake, this can take up to a minute
   - Result should be 200
     - 0123456789ABCDEF0
 
