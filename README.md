@@ -3,7 +3,7 @@
 ## Goals of the Lab
 
 - Enable Contour and Let's Encrypt for secure ingress to an AKS cluster
-- Deploy an  application with path-based routing
+- Deploy an application with path-based routing
 - Deploy a second application with path-based routing
 - Deploy an application with host-based routing
 - Deploy a second application with host-based routing
@@ -190,7 +190,7 @@
 
     ```
 
-## Deploy an application to the cluster
+## Deploy an application using path-based routing
 
 - Heartbeat is a simple application that allows you to retrieve a known set of data from a known endpoint
 
@@ -233,9 +233,9 @@
 
     ```
 
-## Deploy a second application to the cluster
+## Deploy a second application using path-based routing
 
-- The ingress uses "path based" routing to route to `/benchmark/17`
+- The ingress uses path-based routing to route to `/benchmark/17`
 
 - Deploy the application kustomization
 
@@ -398,19 +398,19 @@
   -g "$LAB_DNS_RG" \
   -z "$LAB_DNS_ZONE" \
   -n "$LAB_DNS_HOST" \
-  -a "$LAB_OLD_IP" -o table
+  -a "$LAB_IP" -o table
 
   az network dns record-set a remove-record \
   -g "$LAB_DNS_RG" \
   -z "$LAB_DNS_ZONE" \
   -n "dogs.$LAB_DNS_HOST" \
-  -a "$LAB_OLD_IP" -o table
+  -a "$LAB_IP" -o table
 
   az network dns record-set a remove-record \
   -g "$LAB_DNS_RG" \
   -z "$LAB_DNS_ZONE" \
   -n "tabs.$LAB_DNS_HOST" \
-  -a "$LAB_OLD_IP" -o table
+  -a "$LAB_IP" -o table
 
   ```
 
