@@ -62,5 +62,8 @@ then
     sudo apt-get upgrade -y
 fi
 
+# downgrade az CLI (dns commands fail on 2.5)
+sudo apt-get install -y --allow-downgrades azure-cli=2.49.0-1~bullseye
+
 echo "on-create complete"
 echo "$(date +'%Y-%m-%d %H:%M:%S')    on-create complete" >> "$HOME/status"
