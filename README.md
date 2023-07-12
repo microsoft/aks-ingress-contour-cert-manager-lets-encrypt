@@ -137,13 +137,15 @@
 
   ```
 
-## Setup Contour
+## Setup Contour and Cert-Manager
 
 - Apply the Contour Kustomization
 
     ```bash
 
     kubectl apply -k deploy/contour
+
+    kubectl apply -k deploy/cert-manager
 
     # wait for pods to start
     kubectl wait pod --all -n cert-manager --for=condition=ready --timeout 60s
