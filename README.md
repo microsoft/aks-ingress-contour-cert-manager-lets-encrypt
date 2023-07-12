@@ -137,7 +137,7 @@
 
   ```
 
-## Setup Contour
+## Setup Contour and Cert-Manager
 
 - Apply the Contour Kustomization
 
@@ -145,10 +145,33 @@
 
     kubectl apply -k deploy/contour
 
+    # wait for pods to start / complete
+    kubectl get pods -n projectcontour --watch
+
+    ```
+
+- Apply the Cert-Manager Kustomization
+
+    ```bash
+
+    kubectl apply -k deploy/cert-manager
+
     # wait for pods to start
     kubectl wait pod --all -n cert-manager --for=condition=ready --timeout 60s
 
+    # check via the CLI
+    kubectl cert-manager check api
+
     ```
+
+- Edit the lets-encrypt manifest
+  - Use a valid email address
+
+  ```bash
+
+  code deploy/lets-encrypt/lets-encrypt.yaml
+
+  ```
 
 - Apply the lets-encrypt Kustomization
 
@@ -156,8 +179,8 @@
 
   kubectl apply -k deploy/lets-encrypt
 
-  # check pods
-  kubectl get pods -A
+  # check secrets
+  kubectl get secrets -n cert-manager
 
   ```
 
@@ -263,21 +286,14 @@
 
   ```
 
-- Check the endpoint
-  - Result should be 301
+- Check the endpoints
 
     ```bash
 
+    # Result should be 301
     http http://$LAB_FQDN/benchmark/17
 
-    ```
-
-- Check the https endpoint
-  - Result should be 200
-    - 0123456789ABCDEF0
-
-    ```bash
-
+    # Result should be 200
     http https://$LAB_FQDN/benchmark/17
 
     ```

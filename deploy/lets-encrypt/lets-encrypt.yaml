@@ -5,7 +5,8 @@ metadata:
   namespace: cert-manager
 spec:
   acme:
-    email: pib-gitops@outlook.com
+    # update to a valid email address
+    email: aks-demo@outlook.com
     privateKeySecretRef:
       name: letsencrypt-prod
     server: https://acme-v02.api.letsencrypt.org/directory

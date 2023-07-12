@@ -56,7 +56,6 @@ vcluster completion zsh > "$HOME/.oh-my-zsh/completions/_vcluster"
 sudo apt-get update
 
 # only run apt upgrade on pre-build
-echo "CS: $CODESPACE_NAME" >> "$HOME/status"
 if [ "$CODESPACE_NAME" = "null" ] || [ "$CODESPACE_NAME" = "" ]
 then
     echo "$(date +'%Y-%m-%d %H:%M:%S')    upgrading" >> "$HOME/status"
@@ -68,6 +67,11 @@ sudo apt-get install -y --allow-downgrades azure-cli=2.49.0-1~bullseye
 
 # install aks cli
 sudo az aks install-cli
+
+# install cert-mgr CLI
+curl -L -o kubectl-cert-manager.tar.gz https://github.com/jetstack/cert-manager/releases/latest/download/kubectl-cert_manager-linux-amd64.tar.gz
+sudo tar -xzf kubectl-cert-manager.tar.gz -C /usr/local/bin
+rm -f kubectl-cert-manager.tar.gz
 
 echo "on-create complete"
 echo "$(date +'%Y-%m-%d %H:%M:%S')    on-create complete" >> "$HOME/status"

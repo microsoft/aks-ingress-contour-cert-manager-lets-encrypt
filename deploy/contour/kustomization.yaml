@@ -2,5 +2,4 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - contour.yaml
-  - cert-manager.yaml
+  - https://projectcontour.io/quickstart/contour.yaml
