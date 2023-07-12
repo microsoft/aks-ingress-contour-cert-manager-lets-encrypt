@@ -155,6 +155,15 @@
 
     ```
 
+- Edit the lets-encrypt manifest
+  - Use a valid email address
+
+  ```bash
+
+  code deploy/lets-encrypt/lets-encrypt.yaml
+
+  ```
+
 - Apply the lets-encrypt Kustomization
 
   ```bash
