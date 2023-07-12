@@ -69,5 +69,11 @@ sudo apt-get install -y --allow-downgrades azure-cli=2.49.0-1~bullseye
 # install aks cli
 sudo az aks install-cli
 
+# install cert-mgr CLI
+curl -L -o kubectl-cert-manager.tar.gz https://github.com/jetstack/cert-manager/releases/latest/download/kubectl-cert_manager-linux-amd64.tar.gz
+tar xzf kubectl-cert-manager.tar.gz
+sudo mv kubectl-cert_manager /usr/local/bin
+rm -f kubectl-cert-manager.tar.gz
+
 echo "on-create complete"
 echo "$(date +'%Y-%m-%d %H:%M:%S')    on-create complete" >> "$HOME/status"
