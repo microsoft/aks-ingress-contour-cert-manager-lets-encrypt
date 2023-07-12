@@ -105,6 +105,8 @@
   ```
 
 - Create an AKS Cluster
+  - This command will create SSH key files in `$HOME/.ssh`
+  - Copy your `id_rsa` and `id_rsa.pub` to `$HOME/.ssh` if you want to use existing SSH keys
 
   ```bash
 
@@ -126,11 +128,12 @@
 
   ```
 
-- List the pods on the cluster
+- Wait for thepods to start
+  - Press `ctl-c` once all pods are running
 
   ```bash
 
-  kubectl get pods -A
+  kubectl get pods --all-namespaces --watch
 
   ```
 
