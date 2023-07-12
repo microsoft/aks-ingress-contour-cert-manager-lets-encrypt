@@ -128,7 +128,7 @@
 
   ```
 
-- Wait for thepods to start
+- Wait for the pods to start
   - Press `ctl-c` once all pods are running
 
   ```bash
