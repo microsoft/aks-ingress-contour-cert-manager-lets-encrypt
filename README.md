@@ -145,6 +145,12 @@
 
     kubectl apply -k deploy/contour
 
+    ```
+
+- Apply the Cert-Manager Kustomization
+
+    ```bash
+
     kubectl apply -k deploy/cert-manager
 
     # wait for pods to start
