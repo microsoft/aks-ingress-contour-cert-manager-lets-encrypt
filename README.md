@@ -145,6 +145,9 @@
 
     kubectl apply -k deploy/contour
 
+    # wait for pods to start / complete
+    kubectl get pods -n projectcontour --watch
+
     ```
 
 - Apply the Cert-Manager Kustomization
