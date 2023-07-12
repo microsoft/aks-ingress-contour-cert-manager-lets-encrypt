@@ -148,6 +148,9 @@
     # wait for pods to start
     kubectl wait pod --all -n cert-manager --for=condition=ready --timeout 60s
 
+    # check via the CLI
+    kubectl cert-manager check api
+
     ```
 
 - Apply the lets-encrypt Kustomization
