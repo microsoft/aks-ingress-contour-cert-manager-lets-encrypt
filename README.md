@@ -286,21 +286,14 @@
 
   ```
 
-- Check the endpoint
-  - Result should be 301
+- Check the endpoints
 
     ```bash
 
+    # Result should be 301
     http http://$LAB_FQDN/benchmark/17
 
-    ```
-
-- Check the https endpoint
-  - Result should be 200
-    - 0123456789ABCDEF0
-
-    ```bash
-
+    # Result should be 200
     http https://$LAB_FQDN/benchmark/17
 
     ```
