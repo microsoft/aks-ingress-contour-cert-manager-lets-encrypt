@@ -56,7 +56,6 @@ vcluster completion zsh > "$HOME/.oh-my-zsh/completions/_vcluster"
 sudo apt-get update
 
 # only run apt upgrade on pre-build
-echo "CS: $CODESPACE_NAME" >> "$HOME/status"
 if [ "$CODESPACE_NAME" = "null" ] || [ "$CODESPACE_NAME" = "" ]
 then
     echo "$(date +'%Y-%m-%d %H:%M:%S')    upgrading" >> "$HOME/status"
