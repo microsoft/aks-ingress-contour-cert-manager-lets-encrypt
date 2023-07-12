@@ -179,8 +179,8 @@
 
   kubectl apply -k deploy/lets-encrypt
 
-  # check pods
-  kubectl get pods -A
+  # check secrets
+  kubectl get secrets -n cert-manager
 
   ```
 
