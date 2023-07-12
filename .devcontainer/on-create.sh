@@ -56,11 +56,18 @@ vcluster completion zsh > "$HOME/.oh-my-zsh/completions/_vcluster"
 sudo apt-get update
 
 # only run apt upgrade on pre-build
-if [ "$CODESPACE_NAME" = "null" ]
+echo "CS: $CODESPACE_NAME" >> "$HOME/status"
+if [ "$CODESPACE_NAME" = "null" ] || [ "$CODESPACE_NAME" = "" ]
 then
     echo "$(date +'%Y-%m-%d %H:%M:%S')    upgrading" >> "$HOME/status"
     sudo apt-get upgrade -y
 fi
+
+# downgrade az CLI (dns commands fail on 2.5)
+sudo apt-get install -y --allow-downgrades azure-cli=2.49.0-1~bullseye
+
+# install aks cli
+sudo az aks install-cli
 
 echo "on-create complete"
 echo "$(date +'%Y-%m-%d %H:%M:%S')    on-create complete" >> "$HOME/status"

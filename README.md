@@ -3,7 +3,7 @@
 ## Goals of the Lab
 
 - Enable Contour and Let's Encrypt for secure ingress to an AKS cluster
-- Deploy an  application with path-based routing
+- Deploy an application with path-based routing
 - Deploy a second application with path-based routing
 - Deploy an application with host-based routing
 - Deploy a second application with host-based routing
@@ -78,6 +78,14 @@
 
   ```
 
+- View ingress manifest changes
+
+  ```bash
+
+  git diff
+
+  ```
+
 ## Deploy a basic AKS Cluster
 
 - Login to Azure using a device code
@@ -97,6 +105,8 @@
   ```
 
 - Create an AKS Cluster
+  - This command will create SSH key files in `$HOME/.ssh`
+  - Copy your `id_rsa` and `id_rsa.pub` to `$HOME/.ssh` if you want to use existing SSH keys
 
   ```bash
 
@@ -110,14 +120,6 @@
 
   ```
 
-- Install the AKS CLI
-
-  ```bash
-
-  sudo az aks install-cli
-
-  ```
-
 - Login to the AKS Cluster
 
   ```bash
@@ -126,11 +128,12 @@
 
   ```
 
-- List the pods on the cluster
+- Wait for thepods to start
+  - Press `ctl-c` once all pods are running
 
   ```bash
 
-  kubectl get pods -A
+  kubectl get pods --all-namespaces --watch
 
   ```
 
@@ -140,17 +143,21 @@
 
     ```bash
 
-    # due to timing, the let's encrypt setup sometimes fails the first time
-    # wait a few seconds and rerun the command
     kubectl apply -k deploy/contour
+
+    # wait for pods to start
+    kubectl wait pod --all -n cert-manager --for=condition=ready --timeout 60s
 
     ```
 
-- Check Contour Deployment
+- Apply the lets-encrypt Kustomization
 
   ```bash
 
-  kubectl get pods -n projectcontour
+  kubectl apply -k deploy/lets-encrypt
+
+  # check pods
+  kubectl get pods -A
 
   ```
 
@@ -190,7 +197,7 @@
 
     ```
 
-## Deploy an application to the cluster
+## Deploy an application using path-based routing
 
 - Heartbeat is a simple application that allows you to retrieve a known set of data from a known endpoint
 
@@ -223,7 +230,7 @@
     ```
 
 - Check the https endpoint
-  - You may need to retry due to the acme handshake
+  - You may need to retry due to the acme handshake, this can take up to a minute
   - Result should be 200
     - 0123456789ABCDEF0
 
@@ -233,9 +240,9 @@
 
     ```
 
-## Deploy a second application to the cluster
+## Deploy a second application using path-based routing
 
-- The ingress uses "path based" routing to route to `/benchmark/17`
+- The ingress uses path-based routing to route to `/benchmark/17`
 
 - Deploy the application kustomization
 
@@ -398,19 +405,19 @@
   -g "$LAB_DNS_RG" \
   -z "$LAB_DNS_ZONE" \
   -n "$LAB_DNS_HOST" \
-  -a "$LAB_OLD_IP" -o table
+  -a "$LAB_IP" -o table
 
   az network dns record-set a remove-record \
   -g "$LAB_DNS_RG" \
   -z "$LAB_DNS_ZONE" \
   -n "dogs.$LAB_DNS_HOST" \
-  -a "$LAB_OLD_IP" -o table
+  -a "$LAB_IP" -o table
 
   az network dns record-set a remove-record \
   -g "$LAB_DNS_RG" \
   -z "$LAB_DNS_ZONE" \
   -n "tabs.$LAB_DNS_HOST" \
-  -a "$LAB_OLD_IP" -o table
+  -a "$LAB_IP" -o table
 
   ```
 
