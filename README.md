@@ -1,4 +1,4 @@
-# AKS Ingress with Contour and Let's Encrypt
+# AKS Ingress with Contour, Cert-Manager and Let's Encrypt
 
 ## Goals of the Lab
 
