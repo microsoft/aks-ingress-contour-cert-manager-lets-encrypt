@@ -1,11 +1,11 @@
 # AKS Ingress with Contour, Cert-Manager and Let's Encrypt
 
-This lab is designed to help you secure your services running on a Kubernetes cluster and deploy multiple applications using `path-based` and `host-based` routing. This can be useful if you have multiple applications running on your cluster and want to ensure that each one is accessible via its own unique and HTTPS secured URL. This lab uses:
+This lab is designed to help you securely expose your Kubernetes services over HTTPS and deploy multiple applications using `path-based` and `host-based` routing. This can be useful if you have multiple applications running on your cluster and want to ensure that each one is accessible via its own unique and HTTPS secured URL. This lab uses:
 
 - [AKS Cluster](https://learn.microsoft.com/en-us/azure/aks/) - Azure Kubernetes Service to deploy and manage cloud native applications in Azure
 - [Contour](https://projectcontour.io/) - An ingress controller for Kubernetes that works by deploying the Envoy proxy as a reverse proxy and load balancer
 - [Let's Encrypt](https://letsencrypt.org/about/) - A Certificate Authority (CA) to get a certificate for your domain
-- [cert-manager](https://cert-manager.io/docs/) - A Certificate Controller to provision TLS certifications from Let's Encrypt
+- [cert-manager](https://cert-manager.io/docs/) - A Certificate Controller to provision and manage TLS certifications from `Let's Encrypt` or any other issuer
 
 ## Goals of the Lab
 
